@@ -1,0 +1,8 @@
+*.log
+
+client/*.config
+client/Debug
+client/cliente
+
+server/Debug
+server/server

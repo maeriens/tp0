@@ -12,7 +12,7 @@ void* serializar_paquete(t_paquete* paquete, int bytes)
 	desplazamiento+= sizeof(int);
 	memcpy(magic + desplazamiento, paquete->buffer->stream, paquete->buffer->size);
 	desplazamiento+= paquete->buffer->size;
-
+	// tiene que valer lo mismo que lo que recibí en bytes
 	return magic;
 }
 
@@ -35,7 +35,6 @@ int crear_conexion(char *ip, char* puerto)
 
 	// Ahora que tenemos el socket, vamos a conectarlo
 	connect(socket_cliente, server_info->ai_addr, server_info->ai_addrlen);
-
 
 	freeaddrinfo(server_info);
 

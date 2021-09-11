@@ -38,7 +38,6 @@ int main(void) {
 		log_info(logger, "No hay CLAVE!");
 	}
 
-//	leer_consola(logger);
 
 	// Usando el config creado previamente
 	// Lee las variables de IP, Puerto y Valor
@@ -46,6 +45,11 @@ int main(void) {
 	//Loggear valor de config
 
 	log_info(logger, "IP %s Puerto %s Clave %s", ip, puerto, clave);
+
+	// Leer de consola
+
+	leer_consola(logger);
+
 
 	/*---------------------------------------------------PARTE 3-------------------------------------------------------------*/
 
@@ -68,14 +72,14 @@ int main(void) {
 t_log* iniciar_logger(void) {
 	t_log* nuevo_logger;
 
-	nuevo_logger = log_create("tp0.log", "TP0", true, LOG_LEVEL_INFO);
+	nuevo_logger = log_create("cliente.log", "TP0", true, LOG_LEVEL_INFO);
 
 	return nuevo_logger;
 }
 
 t_config* iniciar_config(void) {
 	t_config* nuevo_config;
-	nuevo_config = config_create("./tp0.config");
+	nuevo_config = config_create("./cliente.config");
 	if (nuevo_config == NULL) {
 		printf("No hay config!");
 		exit(1);
@@ -109,6 +113,7 @@ void paquete(int conexion) {
 
 	paquete = crear_paquete();
 	agregar_a_paquete(paquete, leido, strlen(leido) + 1);
+
 	enviar_paquete(paquete, conexion);
 	eliminar_paquete(paquete);
 
