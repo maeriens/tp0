@@ -1,6 +1,7 @@
 #include "client.h"
 #include <readline/readline.h>
 
+
 int main(void) {
 	/*---------------------------------------------------PARTE 2-------------------------------------------------------------*/
 	int conexion;
@@ -48,7 +49,7 @@ int main(void) {
 
 	// Leer de consola
 
-	leer_consola(logger);
+	//	leer_consola(logger);
 
 
 	/*---------------------------------------------------PARTE 3-------------------------------------------------------------*/
@@ -104,18 +105,26 @@ void leer_consola(t_log* logger) {
 }
 
 void paquete(int conexion) {
-	//Ahora toca lo divertido!
 
 	char* leido;
 	t_paquete* paquete;
 
-	leido = "Prueba";
+	//El primero te lo dejo de yapa
+	leido = readline("> ");
 
 	paquete = crear_paquete();
-	agregar_a_paquete(paquete, leido, strlen(leido) + 1);
+	while (strcmp(leido, "") != 0) {
+
+//		paquete = crear_super_paquete();
+		agregar_a_paquete(paquete, leido, strlen(leido) + 1);
+
+		free(leido);
+		leido = readline("> ");
+	}
 
 	enviar_paquete(paquete, conexion);
 	eliminar_paquete(paquete);
+	free(leido);
 
 }
 
@@ -127,7 +136,7 @@ void terminar_programa(int conexion, t_log* logger, t_config* config) {
 	if (config != NULL) {
 		config_destroy(config);
 	}
-	if (conexion != NULL) {
+	if (conexion) {
 		liberar_conexion(conexion);
 	}
 }
